@@ -12,7 +12,7 @@ interface IdfaData {
     /**
      * Identifier for advertisers _(iOS only)_.
      */
-    idfa?: string;
+    idfa: string;
 
     /**
      * Tracking permission status _(iOS only)_. Available only for iOS 14+ devices.
@@ -21,11 +21,6 @@ interface IdfaData {
      * [the tracking transparency API docs](https://developer.apple.com/documentation/apptrackingtransparency/attrackingmanagerauthorizationstatus).
      */
     trackingPermission?: TrackingPermission;
-
-    /**
-     * Android advertising ID _(Android only)_.
-     */
-    aaid?: string;
 }
 
 /**

@@ -16,15 +16,10 @@
 ## Supported Platforms
 
 - iOS
-- Android
 
 ## Installation
 
     $ cordova plugin add cordova-plugin-idfa
-
-Use variable `ANDROID_PLAY_ADID_VERSION` to override dependency version on Android:
-
-    $ cordova plugin add cordova-plugin-idfa --variable ANDROID_PLAY_ADID_VERSION='16.+'
 
 ## API
 
@@ -38,7 +33,6 @@ Returns a `Promise<object>` with the following fields:
 - `idfa`: `string` (_iOS only_) - Identifier for advertisers.
 - `trackingPermission` (_iOS 14+ only_): [`number`](#tracking-permission-values)
    Tracking permission status, available on iOS 14+ devices.
-- `aaid`: `string` (_Android only_) - Android advertising ID.
 
 ### requestPermission()
 
@@ -84,21 +78,19 @@ const idfaPlugin = cordova.plugins.idfa;
 idfaPlugin.getInfo()
     .then(info => {
         if (!info.trackingLimited) {
-            return info.idfa || info.aaid;
+            return info.idfa
         } else if (info.trackingPermission === idfaPlugin.TRACKING_PERMISSION_NOT_DETERMINED) {
             return idfaPlugin.requestPermission().then(result => {
                 if (result === idfaPlugin.TRACKING_PERMISSION_AUTHORIZED) {
                     return idfaPlugin.getInfo().then(info => {
-                        return info.idfa || info.aaid;
+                        return info.idfa;
                     });
                 }
             });
         }
     })
-    .then(idfaOrAaid => {
-        if (idfaOrAaid) {
-            console.log(idfaOrAaid);
-        }
+    .then(idfa => {
+        console.log(idfa);
     });
 ```
 
